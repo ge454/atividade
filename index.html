@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<title>Progressão de Valores</title>
+</head>
+<body>
+<div class="input-group">
+<label for="valor1">Valor 1:</label>
+<input type="number" id="valor1" placeholder="Digite o valor 1">
+</div>
+<div class="input-group">
+<label for="valor2">Valor 2:</label>
+<input type="number" id="valor2" placeholder="Digite o valor 2">
+</div>
+<button onclick="iniciarProgresso()">Iniciar Progressão</button>
+<div id="progress-container">
+<div id="progress-bar">0%</div>
+<button onclick="TrocarCor()"> Trocar Cor</button>
+</div>
+<script>
+let interval;
+function iniciarProgresso() {
+clearInterval(interval);
+const valor1 =
+
+parseFloat(document.getElementById('valor1').value);
+
+const valor2 =
+
+parseFloat(document.getElementById('valor2').value);
+
+if (isNaN(valor1) || isNaN(valor2) || valor2 <= valor1) {
+alert('Por favor, insira valores válidos onde Valor 2 seja maior que Valor 1.');
+return;
+}
+
+const progressBar = document.getElementById('progress-bar');
+const total = valor2 - valor1;
+
+let atual = 0;
+
+progressBar.style.width = '0%';
+progressBar.textContent = '0%';
+
+interval = setInterval(() => {
+atual += total / (total / 10);
+if (atual >= total) {
+atual = total;
+clearInterval(interval);
+}
+const percent = ((atual / total) * 100).toFixed(2);
+progressBar.style.width = percent + '%';
+progressBar.textContent = percent + '%';
+}, 3000);
+}
+</script>
+</body>
+</html>
